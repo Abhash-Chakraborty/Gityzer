@@ -1,6 +1,6 @@
-import { GitHubRepo, Config } from "./interface";
+import { GitHubRepo, Config } from "@/libs/type";
 
-export const runtime = 'edge';
+export const runtime = "edge";
 
 export async function POST(request: Request): Promise<Response> {
   try {

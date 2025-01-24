@@ -1,8 +1,8 @@
 import { GoogleGenerativeAI, GenerativeModel } from "@google/generative-ai";
 import { NextResponse } from "next/server";
-import { RequestData, ResponseData } from "./interface";
+import { RequestData, ResponseData } from "@/libs/type";
 
-export const runtime = 'edge';
+export const runtime = "edge";
 
 export const POST = async (request: Request): Promise<NextResponse> => {
   const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);

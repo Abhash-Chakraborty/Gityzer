@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 export default function Header() {
     return (
@@ -19,5 +19,5 @@ export default function Header() {
                 <h1 className='text-xl font-bold text-white'>Gityzer</h1>
             </a>
         </header>
-    )
+    );
 }

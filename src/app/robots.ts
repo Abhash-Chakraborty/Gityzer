@@ -1,15 +1,15 @@
-import type { MetadataRoute } from 'next'
+import type { MetadataRoute } from "next";
 
 //* refer here: https://nextjs.org/docs/app/api-reference/file-conventions/metadata/robots
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: {
-      userAgent: '*',
-      allow: '/',
-      disallow: ['/api/', '/*.js$', '/*.json$', '/static/', '/build/'],
+      userAgent: "*",
+      allow: "/",
+      disallow: ["/api/", "/*.js$", "/*.json$", "/static/", "/build/"],
     },
-    sitemap: 'https://gityzer.vercel.app/sitemap.xml',
-  }
+    sitemap: "https://gityzer.vercel.app/sitemap.xml",
+  };
 }
 
 /* User-agent: *

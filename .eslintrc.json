@@ -1,3 +1,15 @@
 {
-  "extends": ["next/babel", "next/core-web-vitals"]
+  "extends": ["next", "next/core-web-vitals", "plugin:@typescript-eslint/recommended"],
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"],
+  "rules": {
+    "semi": ["error", "always"],
+    "quotes": ["error", "double"],
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+    "react/jsx-uses-react": "off",
+    "react/react-in-jsx-scope": "off",
+    "no-console": ["error", { "allow": ["warn", "error"] }]
+    // Add any custom rules here
+  }
 }

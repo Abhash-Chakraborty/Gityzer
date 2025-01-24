@@ -1,6 +1,6 @@
-import { ApiResponse, GenerateTaglineParams } from "./interface";
+import { GenerateTaglineParams, ApiResponse } from "@/libs/type";
 
-export const runtime = 'edge';
+export const runtime = "edge";
 
 export async function POST(request: Request): Promise<Response> {
   try {
