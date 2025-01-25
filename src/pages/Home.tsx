@@ -3,6 +3,7 @@ import { useState, useEffect, useRef, FormEvent, ChangeEvent } from "react";
 import { useRouter } from "next/navigation";
 import toast, { Toaster } from "react-hot-toast";
 import Typewriter from "typewriter-effect";
+import axios from "axios";
 
 function Home() {
   const [username, setUserName] = useState<string>("");
@@ -24,16 +25,10 @@ function Home() {
 
     if (username.trim()) {
       try {
-        const response = await fetch("/api/github_profile", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ username: username.trim() }),
-        });
+        const response = await axios.post("/api/github_profile", { username: username.trim() }, { timeout: 5000 });
 
-        if (response.ok) {
-          const data = await response.json();
+        if (response.status === 200) {
+          const data = response.data;
           if (data.config.repo_count > 0) {
             router.push(`/${username.trim()}`);
           } else {
@@ -42,8 +37,12 @@ function Home() {
         } else {
           toast.error("Error verifying username. Please try again.");
         }
-      } catch {
-        toast.error("An unexpected error occurred. Please try again.");
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          toast.error(error.response?.data?.error || "An unexpected error occurred. Please try again.");
+        } else {
+          toast.error("An unexpected error occurred. Please try again.");
+        }
       }
     } else {
       toast.error("Please enter a username.");

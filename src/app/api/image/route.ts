@@ -1,6 +1,7 @@
 import satori from "satori";
 import { NextResponse } from "next/server";
 import RenderSVG from "@/components/RenderSVG";
+import axios from "axios";
 
 export const runtime = "edge";
 
@@ -21,17 +22,13 @@ export async function GET(req: Request): Promise<NextResponse> {
 
     const requestBody = { username: username };
 
-    const configRes = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/config`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(requestBody),
-    });
+    const configRes = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/config`, requestBody, { timeout: 5000 });
 
-    if (!configRes.ok) {
+    if (configRes.status !== 200) {
         throw new Error("Failed to fetch config");
     }
 
-    const configData = await configRes.json();
+    const configData = configRes.data;
 
     const config = {
         theme: query.theme || configData.theme || "",
@@ -60,37 +57,37 @@ export async function GET(req: Request): Promise<NextResponse> {
             fonts: [
                 {
                     name: "Helvetica",
-                    data: await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/Helvetica.otf`).then((res) => res.arrayBuffer()),
+                    data: await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/Helvetica.otf`, { responseType: "arraybuffer", timeout: 5000 }).then((res) => res.data),
                     weight: 400,
                     style: "normal",
                 },
                 {
                     name: "Arial",
-                    data: await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/Arial.ttf`).then((res) => res.arrayBuffer()),
+                    data: await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/Arial.ttf`, { responseType: "arraybuffer", timeout: 5000 }).then((res) => res.data),
                     weight: 400,
                     style: "normal",
                 },
                 {
                     name: "TimesNewRoman",
-                    data: await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/TimesNewRoman.ttf`).then((res) => res.arrayBuffer()),
+                    data: await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/TimesNewRoman.ttf`, { responseType: "arraybuffer", timeout: 5000 }).then((res) => res.data),
                     weight: 400,
                     style: "normal",
                 },
                 {
                     name: "Calibri",
-                    data: await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/Calibri.ttf`).then((res) => res.arrayBuffer()),
+                    data: await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/Calibri.ttf`, { responseType: "arraybuffer", timeout: 5000 }).then((res) => res.data),
                     weight: 400,
                     style: "normal",
                 },
                 {
                     name: "Verdana",
-                    data: await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/Verdana.ttf`).then((res) => res.arrayBuffer()),
+                    data: await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/Verdana.ttf`, { responseType: "arraybuffer", timeout: 5000 }).then((res) => res.data),
                     weight: 400,
                     style: "normal",
                 },
                 {
                     name: "Cascadia",
-                    data: await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/CascadiaCode-Bold.otf`).then((res) => res.arrayBuffer()),
+                    data: await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/CascadiaCode-Bold.otf`, { responseType: "arraybuffer", timeout: 5000 }).then((res) => res.data),
                     weight: 800,
                     style: "normal",
                 },

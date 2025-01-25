@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import MyCard from "@/components/MyCard";
 import { Contributor } from "@/libs/type";
 
@@ -10,8 +11,8 @@ function Contributors() {
   useEffect(() => {
     async function fetchAllContributors() {
       try {
-        const response = await fetch("/api/fetch_contributors");
-        const data: Contributor[] = await response.json();
+        const response = await axios.get("/api/fetch_contributors", { timeout: 5000 });
+        const data: Contributor[] = response.data;
         setContributors(data);
       } catch (error) {
         console.error("Error fetching contributors data:", error);

@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { Contributor } from "@/libs/type";
+import axios from "axios";
 
 export async function GET() {
   const contributors: Contributor[] = [];
@@ -9,15 +10,16 @@ export async function GET() {
 
   try {
     while (true) {
-      const response = await fetch(
+      const response = await axios.get(
         `https://api.github.com/repos/vansh-codes/Gityzer/contributors?per_page=${perPage}&page=${page}`,
         {
           headers: {
             Authorization: `token ${GITHUB_TOKEN}`,
           },
+          timeout: 5000
         }
       );
-      const data: Contributor[] = await response.json();
+      const data: Contributor[] = response.data;
 
       if (data.length === 0) break;
 

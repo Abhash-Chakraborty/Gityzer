@@ -1,4 +1,5 @@
 import { GenerateTaglineParams, ApiResponse } from "@/libs/type";
+import axios from "axios";
 
 export const runtime = "edge";
 
@@ -21,15 +22,11 @@ export async function POST(request: Request): Promise<Response> {
                     Do not include any offensive or inappropriate content. Do not include any content that is not safe for work.
                     Do not include Usernames, URLs, or any other personal information in the response.`;
 
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/ai`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ prompt }),
-    });
+    const res = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/ai`, { prompt }, { timeout: 5000 });
 
-    const data: ApiResponse = await res.json();
+    const data: ApiResponse = res.data;
 
-    if (res.ok) {
+    if (res.status === 200) {
       return new Response(JSON.stringify({ response: data.response }), {
         headers: { "Content-Type": "application/json" },
       });

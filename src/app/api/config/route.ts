@@ -1,22 +1,24 @@
 import { GitHubRepo, Config } from "@/libs/type";
+import axios from "axios";
 
 export const runtime = "edge";
 
 export async function POST(request: Request): Promise<Response> {
   try {
     const { username }: { username: string } = await request.json();
-    const response = await fetch(`https://api.github.com/users/${username}/repos`, {
+    const response = await axios.get(`https://api.github.com/users/${username}/repos`, {
       headers: {
         "Authorization": `token ${process.env.GITHUB_TOKEN}`,
         "Content-Type": "application/json"
-      }
+      },
+      timeout: 5000
     });
 
-    if (!response.ok) {
+    if (response.status !== 200) {
       throw new Error(`GitHub API request failed with status ${response.status}`);
     }
 
-    const userData: GitHubRepo[] = await response.json();
+    const userData: GitHubRepo[] = response.data;
 
     const Languages: Record<string, number> = {};
     const Description: Record<string, string> = {};
@@ -85,15 +87,11 @@ export async function POST(request: Request): Promise<Response> {
       config: config,
     };
 
-    const taglineResponse = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/generate_tagline`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(input),
-    });
+    const taglineResponse = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/generate_tagline`, input, { timeout: 5000 });
 
-    const taglineData = await taglineResponse.json();
+    const taglineData = taglineResponse.data;
 
-    if (!taglineResponse.ok) {
+    if (taglineResponse.status !== 200) {
       console.error("Tagline generation failed:", taglineData.error || "Unknown error");
       throw new Error(`Tagline generation failed with status ${taglineResponse.status}`);
     }
