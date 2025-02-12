@@ -1,8 +1,8 @@
 "use client";
 import { useState, useRef } from "react";
 import { Toaster } from "react-hot-toast";
-import ExportOptions from "@/app/[username]/components/ExportOptions";
-import CustomizeForm from "@/app/[username]/components/CustomizeForm";
+import ExportOptions from "@/components/ExportOptions";
+import CustomizeForm from "@/components/CustomizeForm";
 import { useUpdateURL, useFetchImage, useHandleChange, useInitializeConfig } from "@/libs/hooks";
 import { PreviewCardProps, Config } from "@/libs/type";
 
@@ -27,6 +27,7 @@ export default function PreviewCard({ params }: PreviewCardProps) {
           {imageUrl && <img src={imageUrl} alt="" />}
         </div>
       </div>
+      <div className="h-9"></div>
       <ExportOptions 
         username={username}
         imageUrl={imageUrl}

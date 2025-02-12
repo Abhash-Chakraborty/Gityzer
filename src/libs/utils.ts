@@ -24,6 +24,7 @@ export const defaultConfig: Config = {
 export const themeOptions = ["dark", "light"];
 export const fontOptions = ["Helvetica", "Arial", "TimesNewRoman", "Calibri", "Verdana"];
 export const patternOptions = ["shape 1", "shape 2"];
+export const options = ["star", "fork", "repo"];
 
 // Default URL parameters
 export const defaultParams = "theme=default&font=default&pattern=default";

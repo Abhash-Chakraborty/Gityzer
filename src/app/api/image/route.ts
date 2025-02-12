@@ -1,6 +1,6 @@
 import satori from "satori";
 import { NextResponse } from "next/server";
-import RenderSVG from "@/components/RenderSVG";
+import RenderSVG from "@/app/api/image/components/RenderSVG";
 import axios from "axios";
 
 export const runtime = "edge";
@@ -22,7 +22,7 @@ export async function GET(req: Request): Promise<NextResponse> {
 
     const requestBody = { username: username };
 
-    const configRes = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/config`, requestBody, { timeout: 5000 });
+    const configRes = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/config`, requestBody, { timeout: 10000 });
 
     if (configRes.status !== 200) {
         throw new Error("Failed to fetch config");

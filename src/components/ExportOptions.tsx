@@ -7,8 +7,8 @@ export default function ExportOptions({ username, imageUrl }) {
   const exportPNG = () => {
     if (imageUrl) {
       fetch(imageUrl)
-        .then(response => response.text())
-        .then(svgText => {
+        .then((response) => response.text())
+        .then((svgText) => {
           const svg = new Blob([svgText], { type: "image/svg+xml;charset=utf-8" });
           const url = URL.createObjectURL(svg);
           const img = new window.Image();
@@ -70,7 +70,7 @@ export default function ExportOptions({ username, imageUrl }) {
   };
 
   return (
-    <div className="text-justify font-semibold font-mono flex bg-slate-800 bg-opacity-80 rounded-xl p-4 shadow-lg gap-8 items-center justify-center w-[50vw] min-w-[600px] mx-auto">
+    <div className="text-justify font-semibold font-mono flex bg-slate-800 bg-opacity-80 rounded-xl p-4 shadow-lg gap-8 items-center justify-center w-[50vw] min-w-[600px] mx-auto h-10">
       <button 
         onClick={exportMarkdown}
         className="flex gap-2 bg-slate-600 p-1 rounded-md items-center border-white border-[1px] min-w-[120px]">

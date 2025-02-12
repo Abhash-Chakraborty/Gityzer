@@ -1,10 +1,8 @@
 "use client";
 
-import { themeOptions, fontOptions, patternOptions } from "@/libs/utils";
+import { themeOptions, fontOptions, patternOptions, options } from "@/libs/utils";
 
 export default function CustomizeForm({ config, handleChange }) {
-  const options = ["star", "fork", "repo"];
-
   return (
     <div className="max-w-6xl mx-auto mb-2 bg-slate-800 bg-opacity-80 rounded-xl p-8 shadow-lg h-fit w-[50vw] items-center justify-center font-medium">
       <form className="flex flex-col gap-8">
